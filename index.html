@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tu cocina en un minuto</title>
+    <script type="module" crossorigin src="/motor-cocinas-demo/assets/index-BCGACshW.js"></script>
+    <link rel="modulepreload" crossorigin href="/motor-cocinas-demo/assets/catalogo-DVuKEr2v.js">
+    <link rel="stylesheet" crossorigin href="/motor-cocinas-demo/assets/catalogo-iNL8TahP.css">
+    <link rel="stylesheet" crossorigin href="/motor-cocinas-demo/assets/index-BhoWeHo5.css">
+  </head>
+  <body class="sencillo">
+    <header class="cab-sencilla">
+      <div>
+        <h1>Tu cocina en un minuto</h1>
+        <p class="sub">Medidas, estilo y lo que quieres. Sale el 3D, el plano, la lista exacta de Obramat y el presupuesto.</p>
+      </div>
+      <a class="enlace" href="./avanzado.html">Ajustar a mano (avanzado) →</a>
+    </header>
+
+    <main class="pasos">
+      <section class="panel paso">
+        <h2><span class="num">1</span> Tu cocina</h2>
+        <div class="formas" id="formas">
+          <button data-forma="lineal" class="forma activa"><svg viewBox="0 0 60 40"><rect x="4" y="6" width="52" height="10" /></svg>Lineal</button>
+          <button data-forma="L" class="forma"><svg viewBox="0 0 60 40"><rect x="4" y="6" width="52" height="10" /><rect x="46" y="6" width="10" height="30" /></svg>En L</button>
+        </div>
+        <div class="fila">
+          <label>Pared principal (cm) <input id="p1" type="number" step="5" value="360" /></label>
+          <label id="lblP2" hidden>Pared lateral (cm) <input id="p2" type="number" step="5" value="200" /></label>
+        </div>
+        <div class="fila">
+          <label>Toma de agua a… (cm desde la izquierda) <input id="agua" type="number" step="5" placeholder="en el centro" /></label>
+          <label class="check"><input id="hayVentana" type="checkbox" /> Hay ventana sobre la encimera</label>
+        </div>
+        <div class="fila" id="filaVentana" hidden>
+          <label>Centro de la ventana (cm) <input id="vx" type="number" step="5" value="180" /></label>
+          <label>Ancho de la ventana (cm) <input id="va" type="number" step="5" value="120" /></label>
+        </div>
+      </section>
+
+      <section class="panel paso">
+        <h2><span class="num">2</span> Estilo</h2>
+        <p class="etq">Frentes</p>
+        <div class="muestras" id="series"></div>
+        <div class="fila">
+          <label>Laterales vistos <select id="costados"></select></label>
+          <label>Tirador <select id="tirador"></select></label>
+          <label>Encimera <select id="encimera">
+            <option value="laminada fina tipo mármol Marquina: negro con vetas blancas y doradas finas">Negra veteada (Marquina)</option>
+            <option value="laminada fina blanca mate tipo cuarzo">Blanca mate</option>
+            <option value="laminada fina efecto madera de roble natural">Madera roble</option>
+            <option value="laminada fina gris cemento">Gris cemento</option>
+          </select></label>
+        </div>
+      </section>
+
+      <section class="panel paso">
+        <h2><span class="num">3</span> Lo que quieres</h2>
+        <div class="deseos">
+          <label class="deseo"><input id="dLv" type="checkbox" checked /> Lavavajillas</label>
+          <label class="deseo"><input id="dFrigo" type="checkbox" checked /> Frigorífico integrado</label>
+          <label class="deseo"><input id="dHorno" type="checkbox" /> Horno en columna</label>
+          <label class="deseo"><input id="dCajones" type="checkbox" /> Más cajones</label>
+          <label class="deseo"><input id="dMontaje" type="checkbox" /> El material lo compra el cliente (solo montaje)</label>
+        </div>
+        <button id="crear" class="grande">Crear mi cocina</button>
+      </section>
+    </main>
+
+    <section class="resultado" id="resultado" hidden>
+      <div class="panel resumen-cocina">
+        <div>
+          <p class="etq">Precio orientativo</p>
+          <p class="precio" id="precio"></p>
+          <p class="motivo" id="precioDetalle"></p>
+        </div>
+        <ul class="reglas" id="reglas"></ul>
+        <div class="descargas">
+          <button id="bBc3">Presupuesto BC3 → Presupuesya</button>
+          <button id="bLista" class="sec">Copiar lista para Obramat</button>
+          <button id="bPlano" class="sec">Plano (PNG)</button>
+          <button id="b3d" class="sec">Base 3D (PNG)</button>
+          <button id="bPrompt" class="sec">Prompt foto realista</button>
+        </div>
+      </div>
+      <div class="rejilla">
+        <div class="panel"><h2>Vista 3D</h2><div id="v3d" class="lienzo"></div>
+          <p class="nota">Foto realista sin API: descarga la base 3D, ábrela en Gemini y pega el prompt. Las medidas no cambian.</p></div>
+        <div class="panel"><h2>Plano</h2><div id="vPlano" class="lienzo"></div></div>
+      </div>
+      <div class="panel" id="avisos" hidden></div>
+      <div class="rejilla">
+        <div class="panel"><h2>Lista de compra (refs Obramat)</h2>
+          <table class="lista"><thead><tr><th>Ref.</th><th>Cant.</th><th>Designación</th><th class="num">Total</th></tr></thead><tbody id="tLista"></tbody></table></div>
+        <div class="panel"><h2>Presupuesto</h2>
+          <table class="lista"><thead><tr><th>Partida</th><th class="num">Cant.</th><th class="num">Importe</th></tr></thead><tbody id="tPartidas"></tbody></table>
+          <p class="totales" id="totales"></p></div>
+      </div>
+    </section>
+  </body>
+</html>

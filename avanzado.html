@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Despiece de cocinas</title>
+    <script type="module" crossorigin src="/motor-cocinas-demo/assets/avanzado-zfG9Ewlt.js"></script>
+    <link rel="modulepreload" crossorigin href="/motor-cocinas-demo/assets/catalogo-DVuKEr2v.js">
+    <link rel="stylesheet" crossorigin href="/motor-cocinas-demo/assets/catalogo-iNL8TahP.css">
+  </head>
+  <body>
+    <header>
+      <h1>Despiece de cocinas <span class="motivo">· avanzado</span></h1>
+      <p><a class="enlace" href="./">← Vista sencilla</a></p>
+      <p class="sub">Elegí los muebles y sale la lista de compra con referencias de Obramat. Mismo motor que los tests.</p>
+    </header>
+
+    <main>
+      <section class="panel" id="config">
+        <h2>0 · Desde medidas <span class="motivo">(la IA coloca los muebles)</span></h2>
+        <div class="fila">
+          <label>Forma <select id="forma"><option value="lineal">Lineal</option><option value="L">En L</option></select></label>
+          <label>Pared 1 (cm) <input id="pared1" type="number" step="5" value="300" /></label>
+          <label id="lblPared2">Pared 2 (cm) <input id="pared2" type="number" step="5" value="160" /></label>
+        </div>
+        <div class="fila">
+          <label>Toma de agua en pared <select id="tomaPared"><option value="0">1</option><option value="1">2</option></select></label>
+          <label>a (cm) <input id="tomaX" type="number" step="5" value="150" /></label>
+          <label>Salida de humos (cm, opcional) <input id="humosX" type="number" step="5" placeholder="—" /></label>
+          <label>Ventana centro / ancho (cm) <span class="fila"><input id="ventanaX" type="number" step="5" placeholder="—" /><input id="ventanaAncho" type="number" step="5" placeholder="—" /></span></label>
+        </div>
+        <div class="fila checks">
+          <label class="check"><input id="frigo" type="checkbox" checked /> Columna de frigorífico</label>
+          <label class="check"><input id="lavavajillas" type="checkbox" checked /> Lavavajillas</label>
+          <label class="check"><input id="cajones" type="checkbox" /> Preferir cajones</label>
+        </div>
+        <div class="acciones"><button id="generar">Generar distribución</button></div>
+        <ul class="comprobaciones" id="comprobaciones"></ul>
+
+        <h2>1 · Acabados</h2>
+        <div class="fila">
+          <label>Serie de frentes <select id="serie"></select></label>
+          <label>Costados vistos <select id="serieCostados"></select></label>
+          <label>Tirador <select id="tirador"></select></label>
+        </div>
+
+        <h2>2 · Muebles</h2>
+        <div class="presets" id="presets"></div>
+        <table class="modulos">
+          <thead><tr><th>Mueble</th><th>Alto × ancho</th><th>Uso</th><th>Cant.</th><th></th></tr></thead>
+          <tbody id="modulos"></tbody>
+        </table>
+        <p class="vacio" id="sinModulos">Añadí muebles con los botones de arriba.</p>
+
+        <h2>3 · Costados vistos</h2>
+        <div class="presets" id="presetsCostados"></div>
+        <ul class="costados" id="costados"></ul>
+
+        <div class="acciones">
+          <button id="ejemplo" class="sec">Cargar ejemplo (Lanzarote real)</button>
+          <button id="vaciar" class="sec">Vaciar</button>
+        </div>
+      </section>
+
+      <section class="panel" id="resultado">
+        <div class="cabecera">
+          <h2>Lista de compra</h2>
+          <button id="copiar">Copiar para Obramat</button>
+        </div>
+        <div id="plano" class="plano"></div>
+        <div id="bloque3d" class="bloque3d" hidden>
+          <div class="cabecera">
+            <h2>Vista 3D <span class="motivo">(base exacta para la foto realista)</span></h2>
+            <div class="acciones-linea">
+              <button id="copiarPrompt" class="sec">Copiar prompt para Gemini</button>
+              <button id="descargar3d" class="sec">Descargar base 3D (PNG)</button>
+            </div>
+          </div>
+          <div id="vista3d" class="plano"></div>
+          <p class="nota">Foto realista sin API: descargá la base, abrí Gemini, pegá la imagen y el prompt. La IA solo pone materiales y luz; las medidas son las del plano.</p>
+        </div>
+        <p class="resumen" id="resumen"></p>
+        <div id="faltas"></div>
+        <table class="lista">
+          <thead><tr><th>Ref.</th><th>Cant.</th><th>Designación</th><th class="num">PVP ud.</th><th class="num">Total</th></tr></thead>
+          <tbody id="lista"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <section class="panel ancho" id="presupuesto">
+      <div class="cabecera">
+        <h2>4 · Presupuesto</h2>
+        <div class="acciones-linea">
+          <button id="descargarPlano" class="sec">Descargar plano (PNG)</button>
+          <button id="descargarBc3">Descargar BC3 para Presupuesya</button>
+        </div>
+      </div>
+      <div class="fila tarifas">
+        <label class="check"><input id="soloMontaje" type="checkbox" /> Solo montaje (el material lo pone el cliente)</label>
+        <label>Margen muebles % <input id="margenMuebles" type="number" step="5" value="30" /></label>
+        <label>Margen herrajes % <input id="margenHerrajes" type="number" step="5" value="30" /></label>
+        <label>Margen electros % <input id="margenElectros" type="number" step="5" value="10" /></label>
+        <label>Montaje €/ml <input id="porMl" type="number" step="5" value="90" /></label>
+        <label>Encimera € <input id="encimera" type="number" step="5" value="120" /></label>
+        <label>Electros € <input id="electros" type="number" step="5" value="100" /></label>
+        <label>Grifería € <input id="griferia" type="number" step="1" value="34" /></label>
+        <label>Precio acordado € (opcional) <input id="objetivo" type="number" step="5" placeholder="—" /></label>
+      </div>
+      <div id="avisosPresupuesto"></div>
+      <table class="lista">
+        <thead><tr><th>Capítulo</th><th>Partida</th><th class="num">Cant.</th><th class="num">Precio</th><th class="num">IVA</th><th class="num">Importe</th></tr></thead>
+        <tbody id="partidas"></tbody>
+      </table>
+      <p class="totales" id="totales"></p>
+    </section>
+  </body>
+</html>
